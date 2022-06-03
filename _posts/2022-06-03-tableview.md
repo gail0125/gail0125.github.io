@@ -1,7 +1,8 @@
 ---
 layout: post
 title:  "12장 tableview"
-
+---
+#12장
 
 TableviewController.swift
 
@@ -253,4 +254,3 @@ override func viewWillAppear(_ animated: Bool) {
     
 이상으로 테이블 뷰와 애드뷰 디테일뷰를 이용한 목록만들기였습니다.
 
----
