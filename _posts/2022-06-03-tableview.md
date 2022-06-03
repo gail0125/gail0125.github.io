@@ -5,11 +5,15 @@ title:  "12장 tableview"
 #12장
 
 TableviewController.swift
+
 import UIKit
+
 var items = ["책 구매", "철수와 약속", "스터디 준비하기"]
 var itemsImageFile = ["cart.png", "clock.png", "pencil.png"]
+
 class TableViewController: UITableViewController {
-@IBOutlet var tvListView: UITableView!
+
+    @IBOutlet var tvListView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,10 +114,14 @@ class TableViewController: UITableViewController {
             detailView.reciveItem(items[((indexPath! as NSIndexPath).row)])
         }
     }
+    
+
 }
 
 
 AddViewController.swift
+
+
 import UIKit
 
 class AddViewController: UIViewController {
@@ -142,10 +150,13 @@ class AddViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+
 }
 
 
 DetailViewController.swift
+
+
 import UIKit
 
 class DetailViewController: UIViewController {
@@ -177,8 +188,8 @@ class DetailViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-}
 
+}
 
 위 코드중 TableViewController에는 테이블 목록을 보여주는 코드와 그 목록을 삭제하는 코드와 목록 순서를 바꾸는 코드가 포함되어 있습니다.
 AddViewController에는 새 목록을 추가하는 코드,DetailViewController에는 목록의 세부내용을 보여주는 코드가 포함되어 있습니다.
