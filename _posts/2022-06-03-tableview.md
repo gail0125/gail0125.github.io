@@ -2,7 +2,7 @@
 layout: post
 title:  "12장 tableview"
 ---
-#12장
+#12장 audio
 
 이것은 테이블뷰를 이용해서 할일 만들기 앱 입니다.
 
