@@ -4,197 +4,15 @@ title:  "12장 tableview"
 ---
 #12장
 
-TableviewController.swift
+![12장 1번](../images/2022-06-03-tableview/12장 1번.png)
 
-import UIKit
-
-var items = ["책 구매", "철수와 약속", "스터디 준비하기"]
-var itemsImageFile = ["cart.png", "clock.png", "pencil.png"]
-
-class TableViewController: UITableViewController {
-
-    @IBOutlet var tvListView: UITableView!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-    
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        self.navigationItem.leftBarButtonItem = self.editButtonItem
-    }
+![12장 2번](../images/2022-06-03-tableview/12장 2번.png)
 
 
-​    
-    override func viewWillAppear(_ animated: Bool) {
-            tvListView.reloadData()
-    }
+
+![12장 3번](../images/2022-06-03-tableview/12장 3번.png)
 
 
-    // MARK: - Table view data source
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return items.count
-    }
-
-
-​    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
-    
-        cell.textLabel?.text = items[(indexPath as NSIndexPath).row]
-        cell.imageView?.image = UIImage(named: itemsImageFile[(indexPath as NSIndexPath).row])
-    
-        return cell
-    }
-
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-
-​    
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            items.remove(at: (indexPath as NSIndexPath).row)
-            itemsImageFile.remove(at: (indexPath as NSIndexPath).row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        return "삭제"
-    }
-
-
-​    
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-        let itemToMove = items[(fromIndexPath as NSIndexPath).row]
-        let itemImageToMove = itemsImageFile[(fromIndexPath as NSIndexPath).row]
-        items.remove(at: (fromIndexPath as NSIndexPath).row)
-        itemsImageFile.remove(at: (fromIndexPath as NSIndexPath).row)
-        items.insert(itemToMove, at: (to as NSIndexPath).row)
-        itemsImageFile.insert(itemImageToMove, at: (to as NSIndexPath).row)
-    }
-
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-
-​    
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-        if segue.identifier == "sgDetail" {
-            let cell = sender as! UITableViewCell
-            let indexPath = self.tvListView.indexPath(for: cell)
-            let detailView = segue.destination as! DetailViewController
-            detailView.reciveItem(items[((indexPath! as NSIndexPath).row)])
-        }
-    }
-
-
-}
-
-
-AddViewController.swift
-
-
-import UIKit
-
-class AddViewController: UIViewController {
-
-    @IBOutlet var tfAddItem: UITextField!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    
-        // Do any additional setup after loading the view.
-    }
-    
-    @IBAction func btnAddItem(_ sender: UIButton) {
-        items.append(tfAddItem.text!)
-        itemsImageFile.append("clock.png")
-        tfAddItem.text=""
-        _ = navigationController?.popViewController(animated: true)
-    }
-    
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-}
-
-
-DetailViewController.swift
-
-
-import UIKit
-
-class DetailViewController: UIViewController {
-    
-    var receiveItem = ""
-    
-    @IBOutlet var lblItem: UILabel!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    
-        // Do any additional setup after loading the view.
-        lblItem.text = receiveItem
-    }
-
-
-​    
-    func reciveItem(_ item: String)
-    {
-        receiveItem = item
-    }
-
-
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-}
 
 위 코드중 TableViewController에는 테이블 목록을 보여주는 코드와 그 목록을 삭제하는 코드와 목록 순서를 바꾸는 코드가 포함되어 있습니다.
 AddViewController에는 새 목록을 추가하는 코드,DetailViewController에는 목록의 세부내용을 보여주는 코드가 포함되어 있습니다.
@@ -239,10 +57,10 @@ class DetailViewController: UIViewController {
 
 
 ​    
-    func reciveItem(_ item: String)
-    {
-        receiveItem = item
-    }
+​    func reciveItem(_ item: String)
+​    {
+​        receiveItem = item
+​    }
 
 위 소스의 의미는 메인 뷰에서 받을 텍스트를 위해 변수 receiveitem을 선언,  뷰가 노출될때마다 레이블의 텍스로 표시, 메인뷰에서 변수를 받기위한 함수를 추가한다 를 의미합니다.
 다음은 테이블뷰에서 세그웨이를 이용하여 뷰를 이동하는 함수를 활성화시켰습니다.
@@ -270,22 +88,35 @@ Override to support conditional rearranging of the table view.
         }
     }
 
-
 이상으로 테이블 뷰와 애드뷰 디테일뷰를 이용한 목록만들기였습니다.
 
 
 
-아래는 앱의 동작사진입니다.
+앱의 환경은 이렇습니다.
+
+
+
+![스크린샷 2022-06-16 오후 3.41.39](../images/2022-06-03-tableview/스크린샷 2022-06-16 오후 3.41.39.png)
+
+아래는 앱의 동작사진입니다. 
 
 
 
 ![12(1)](../images/2022-06-03-tableview/12(1).png)
 
-이게 앱을 실행하면 처음으로 나오는 화면입니다 우측에 add를 누르면
+이게 앱을 실행하면 처음으로 나오는 화면입니다. 해당 목록을 클릭하면
+
+![12장 디테일](../images/2022-06-03-tableview/12장 디테일-16553734222628.png)
+
+이렇게 세부내용을 볼수있습니다. main view 버튼을 눌러 초기화면으로 돌아온뒤
+
+![12(1)](../images/2022-06-03-tableview/12(1)-165537349597610.png)
+
+우측 +버튼을 눌러줍니다.
 
 ![12(2)](../images/2022-06-03-tableview/12(2).png)
 
-이렇게 Add View창에 들어가게 되고 
+그러면 이렇게 Add View창에 들어가게 되고 
 
 ![12(3)](../images/2022-06-03-tableview/12(3).png)
 
